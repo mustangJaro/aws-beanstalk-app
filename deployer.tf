@@ -9,7 +9,7 @@ resource "aws_iam_access_key" "deployer" {
 
 // The actions listed are necessary to perform 'aws s3 sync'
 resource "aws_iam_user_policy" "deployer" {
-  name   = "AllowS3Deploy"
+  name   = "Deploy"
   user   = aws_iam_user.deployer.name
   policy = data.aws_iam_policy_document.deployer.json
 }
@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "deployer" {
   statement {
     sid       = "AllowBeanstalkAdminApp"
     effect    = "Allow"
-    resources = [aws_elastic_beanstalk_application.this.name]
+    resources = [aws_elastic_beanstalk_application.this.arn]
     actions   = ["beanstalk:CreateApplicationVersion"]
   }
 
