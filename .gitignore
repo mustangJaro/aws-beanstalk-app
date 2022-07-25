@@ -27,3 +27,7 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+__backend__.tf
+.nullstone/active-workspace.yml
+
+.terraform.lock.hcl
