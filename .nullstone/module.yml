@@ -1,0 +1,13 @@
+org_name: nullstone
+name: aws-beanstalk-app
+friendly_name: Elastic Beanstalk App
+description: Creates an elastic beanstalk application that can be launched across AWS accounts
+category: app
+subcategory: server
+provider_types:
+    - aws
+platform: ec2
+subplatform: beanstalk
+type: ""
+appCategories: []
+is_public: true
