@@ -40,15 +40,27 @@ data "aws_iam_policy_document" "deployer" {
     resources = ["arn:aws:s3:::${local.artifacts_bucket_name}/*"]
   }
 
-  /*
   statement {
-    sid    = "AllowBeanstalkDeploy"
-    effect = "Allow"
+    sid       = "AllowBeanstalkAdminApp"
+    effect    = "Allow"
+    resources = [aws_elastic_beanstalk_application.this.name]
+    actions   = ["beanstalk:CreateApplicationVersion"]
+  }
+
+  statement {
+    sid       = "AllowBeanstalkDeploy"
+    effect    = "Allow"
+    resources = [aws_elastic_beanstalk_environment.this.arn]
 
     actions = [
+      "beanstalk:UpdateEnvironment",
+      "beanstalk:DescribeEnvironments",
     ]
 
-    resources = [aws_elastic_beanstalk_application.this.name]
+    condition {
+      variable = "elasticbeanstalk:InApplication"
+      test     = "ArnEquals"
+      values   = [aws_elastic_beanstalk_application.this.arn]
+    }
   }
-  */
 }
