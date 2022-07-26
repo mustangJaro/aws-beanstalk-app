@@ -41,26 +41,94 @@ data "aws_iam_policy_document" "deployer" {
   }
 
   statement {
-    sid       = "AllowBeanstalkAdminApp"
+    sid       = "AllBeanstalkInApplications"
     effect    = "Allow"
-    resources = [aws_elastic_beanstalk_application.this.arn]
-    actions   = ["beanstalk:CreateApplicationVersion"]
-  }
-
-  statement {
-    sid       = "AllowBeanstalkDeploy"
-    effect    = "Allow"
-    resources = [aws_elastic_beanstalk_environment.this.arn]
-
-    actions = [
-      "beanstalk:UpdateEnvironment",
-      "beanstalk:DescribeEnvironments",
-    ]
+    actions   = ["elasticbeanstalk:*"]
+    resources = ["*"]
 
     condition {
       variable = "elasticbeanstalk:InApplication"
-      test     = "ArnEquals"
+      test     = "StringEquals"
       values   = [aws_elastic_beanstalk_application.this.arn]
     }
+  }
+
+  statement {
+    sid       = "AllBeanstalkOnApplications"
+    effect    = "Allow"
+    actions   = ["elasticbeanstalk:*"]
+    resources = [aws_elastic_beanstalk_application.this.arn]
+  }
+
+  statement {
+    sid       = "AllBeanstalkOnSolutionStacks"
+    effect    = "Allow"
+    actions   = ["elasticbeanstalk:*"]
+    resources = ["arn:aws:elasticbeanstalk:${data.aws_region.this.name}::solutionstack/*"]
+  }
+
+  statement {
+    sid    = "AllowS3ArtifactsAccess"
+    effect = "Allow"
+
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:GetObjectAcl",
+      "s3:ListBucket",
+      "s3:DeleteObject",
+      "s3:GetBucketPolicy",
+      "s3:CreateBucket",
+    ]
+
+    resources = [
+      "arn:aws:s3:::elasticbeanstalk*",
+      "arn:aws:s3:::elasticbeanstalk-*-${data.aws_caller_identity.this.account_id}",
+      "arn:aws:s3:::elasticbeanstalk-*-${data.aws_caller_identity.this.account_id}/*"
+    ]
+  }
+
+  statement {
+    sid       = "AllowCloudformationForBeanstalk"
+    effect    = "Allow"
+    resources = ["arn:aws:cloudformation:*:${data.aws_caller_identity.this.account_id}:*"]
+
+    actions = [
+      "cloudformation:GetTemplate",
+      "cloudformation:DescribeStackResources",
+      "cloudformation:DescribeStackResource",
+      "cloudformation:DescribeStackEvents",
+      "cloudformation:DescribeStacks",
+      "cloudformation:UpdateStack",
+      "cloudformation:CancelUpdateStack",
+    ]
+  }
+
+  statement {
+    sid       = "AllowEC2ForBeanstalk"
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "ec2:Describe*",
+      "ec2:RevokeSecurityGroupIngress",
+      "ec2:AuthorizeSecurityGroupIngress",
+    ]
+  }
+
+  statement {
+    sid       = "AllowASGForBeanstalk"
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "autoscaling:SuspendProcesses",
+      "autoscaling:DescribeScalingActivities",
+      "autoscaling:ResumeProcesses",
+      "autoscaling:DescribeAutoScalingGroups",
+      "autoscaling:DescribeLaunchConfigurations",
+      "autoscaling:PutNotificationConfiguration"
+    ]
   }
 }
