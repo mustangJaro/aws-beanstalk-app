@@ -39,7 +39,20 @@ data "aws_iam_policy_document" "deployer" {
 
     resources = ["arn:aws:s3:::${local.artifacts_bucket_name}/*"]
   }
+}
 
+resource "aws_iam_user_policy_attachment" "deployer-beanstalk" {
+  user       = aws_iam_user.deployer.name
+  policy_arn = aws_iam_policy.deployer-beanstalk.arn
+}
+
+resource "aws_iam_policy" "deployer-beanstalk" {
+  name   = "${local.resource_name}-beanstalk"
+  policy = data.aws_iam_policy_document.deployer-beanstalk.json
+  tags   = local.tags
+}
+
+data "aws_iam_policy_document" "deployer-beanstalk" {
   statement {
     sid       = "AllBeanstalkInApplications"
     effect    = "Allow"
@@ -114,15 +127,6 @@ data "aws_iam_policy_document" "deployer" {
       "ec2:Describe*",
       "ec2:RevokeSecurityGroupIngress",
       "ec2:AuthorizeSecurityGroupIngress",
-    ]
-  }
-
-  statement {
-    sid       = "AllowASGForBeanstalk"
-    effect    = "Allow"
-    resources = ["*"]
-
-    actions = [
       "autoscaling:SuspendProcesses",
       "autoscaling:DescribeScalingActivities",
       "autoscaling:ResumeProcesses",
