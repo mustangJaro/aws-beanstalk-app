@@ -3,9 +3,16 @@ resource "aws_elastic_beanstalk_application" "this" {
   tags = local.tags
 }
 
+locals {
+  // Beanstalk requires an environment name to be at least 4 characters
+  // Since some may name their nullstone env "dev", AWS errors when trying to create the beanstalk environment
+  // This local adds padding to the env name to ensure the beanstalk environment name is valid
+  beanstalk_env = length(local.env_name) >= 4 ? local.env_name : "${local.env_name}${substr("____", 0, 4-length(local.env_name))}"
+}
+
 resource "aws_elastic_beanstalk_environment" "this" {
   application         = aws_elastic_beanstalk_application.this.name
-  name                = local.env_name
+  name                = local.beanstalk_env
   tags                = local.tags
   solution_stack_name = var.stack
   tier                = "WebServer"
