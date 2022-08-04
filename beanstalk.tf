@@ -6,8 +6,8 @@ resource "aws_elastic_beanstalk_application" "this" {
 locals {
   // Beanstalk requires an environment name to be at least 4 characters
   // Since some may name their nullstone env "dev", AWS errors when trying to create the beanstalk environment
-  // This local adds padding to the env name to ensure the beanstalk environment name is valid
-  beanstalk_env = length(local.env_name) >= 4 ? local.env_name : "${local.env_name}${substr("____", 0, 4-length(local.env_name))}"
+  // beanstalk_env adds a suffix to ensure the environment name is long enough
+  beanstalk_env = "${local.env_name}-${random_string.resource_suffix.result}"
 }
 
 resource "aws_elastic_beanstalk_environment" "this" {
