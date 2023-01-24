@@ -10,10 +10,10 @@ module "{{ .TfModuleName }}" {
 
   app_metadata = local.app_metadata
 
-  {{- range $key, $value := .Variables }}
-  {{ if not $value.Unused -}}
+  {{- range $key, $value := .Variables -}}
+  {{ if not $value.Unused -}}{{ if $value.Value -}}
   {{ $key }} = jsondecode({{ $value.Value | to_json_string }})
-  {{- end }}{{ end }}
+  {{- end -}}{{- end -}}{{ end }}
 
   providers = {
     ns = ns.cap_{{ .Id}}
