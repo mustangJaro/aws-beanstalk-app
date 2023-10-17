@@ -25,9 +25,9 @@ jobs:
 
       - name: Find version
         id: version
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/v}
+        run: echo "MODULE_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - id: publish
         name: Publish
         run: |
-          nullstone modules publish --version=${{ steps.version.outputs.tag }}
+          nullstone modules publish --version=${{ env.MODULE_VERSION }}
