@@ -10,7 +10,12 @@ locals {
   beanstalk_env = "${local.env_name}-${random_string.resource_suffix.result}"
 
   // Settings Reference: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
-  basic_settings = [
+  basic_settings = [    
+    {
+      namespace = "aws:ec2:instances"
+      name      = "InstanceTypes"
+      value     = join(",", [var.instance_type])
+    },
     {
       namespace = "aws:ec2:vpc"
       name      = "ELBScheme"
