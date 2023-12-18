@@ -1,3 +1,6 @@
+# 0.1.4 (Nov 29, 2023)
+* Enable CloudWatch logging
+
 # 0.1.3 (Nov 29, 2023)
 * Connect the `instance_type` input to the EC2 instance created
 

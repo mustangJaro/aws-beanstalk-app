@@ -45,6 +45,11 @@ locals {
       namespace = "aws:autoscaling:launchconfiguration"
       name      = "SecurityGroups"
       value     = join(",", [aws_security_group.this.id])
+    },
+    {
+      namespace = "aws:elasticbeanstalk:cloudwatch:logs"
+      name      = "StreamLogs"
+      value     = true
     }
   ]
   cap_settings = lookup(local.capabilities, "settings", [])

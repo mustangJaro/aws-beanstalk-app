@@ -45,6 +45,26 @@ output "environment_id" {
   description = "string ||| The ID of the this Elastic Beanstalk Environment"
 }
 
+output "log_provider" {
+  value       = "cloudwatch"
+  description = "string ||| "
+}
+
+output "log_group_name" {
+  value       = "/aws/elasticbeanstalk/${aws_elastic_beanstalk_application.this.name}"
+  description = "string ||| "
+}
+
+output "log_reader" {
+  value = {
+    name       = try(aws_iam_user.log_reader.name, "")
+    access_key = try(aws_iam_access_key.log_reader.id, "")
+    secret_key = try(aws_iam_access_key.log_reader.secret, "")
+  }
+  description = "object({ name: string, access_key: string, secret_key: string }) ||| An AWS User with explicit privilege to read logs from Cloudwatch."
+  sensitive   = true
+}
+
 output "private_urls" {
   value       = local.private_urls
   description = "list(string) ||| A list of URLs only accessible inside the network"
