@@ -51,8 +51,8 @@ output "log_provider" {
 }
 
 output "log_group_name" {
-  value       = "/aws/elasticbeanstalk/${aws_elastic_beanstalk_application.this.name}"
-  description = "string ||| "
+  value       = "/aws/elasticbeanstalk/${aws_elastic_beanstalk_application.this.name}/*"
+  description = "string ||| A wildcard pattern that matches a list of AWS Cloudwatch logs groups containing application logs"
 }
 
 output "log_reader" {

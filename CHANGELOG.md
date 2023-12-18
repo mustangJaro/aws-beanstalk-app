@@ -1,4 +1,4 @@
-# 0.1.4 (Nov 29, 2023)
+# 0.1.4 (Dec 18, 2023)
 * Enable CloudWatch logging
 
 # 0.1.3 (Nov 29, 2023)
