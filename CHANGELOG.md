@@ -1,3 +1,6 @@
+# 0.1.6 (Dec 29, 2023)
+* Fixed improper reference to AWS Account ID for log reader.
+
 # 0.1.5 (Dec 29, 2023)
 * Fixed log-reader permissions to use the correct Cloudwatch log groups.
 
