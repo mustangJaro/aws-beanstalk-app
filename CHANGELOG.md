@@ -1,3 +1,6 @@
+# 0.1.5 (Dec 29, 2023)
+* Fixed log-reader permissions to use the correct Cloudwatch log groups.
+
 # 0.1.4 (Dec 18, 2023)
 * Enable CloudWatch logging
 
