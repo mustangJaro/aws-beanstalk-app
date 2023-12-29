@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "log_reader" {
     ]
 
     resources = [
-      "arn:aws:logs:${data.aws_region.this.name}:${data.aws_caller_identity.current.account_id}:log-group:${local.log_group}:log-stream:*"
+      "arn:aws:logs:${data.aws_region.this.name}:${data.aws_caller_identity.this.account_id}:log-group:${local.log_group}:log-stream:*"
     ]
   }
 }
