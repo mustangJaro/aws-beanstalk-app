@@ -1,3 +1,6 @@
+# 0.1.7 (Dec 29, 2023)
+* Expanded IAM permissions to handle more beanstalk scenarios.
+
 # 0.1.6 (Dec 29, 2023)
 * Fixed improper reference to AWS Account ID for log reader.
 
