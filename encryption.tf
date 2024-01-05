@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "encryption_key" {
 
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_role.execution.arn]
+      identifiers = [aws_iam_role.this.arn]
     }
   }
 }

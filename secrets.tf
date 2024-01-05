@@ -36,6 +36,11 @@ locals {
   secret_statement_resources = length(local.all_arns) > 0 ? [local.all_arns] : []
 }
 
+resource "aws_iam_role_policy" "secrets" {
+  role   = aws_iam_role.this.id
+  policy = data.aws_iam_policy_document.secrets.json
+}
+
 data "aws_iam_policy_document" "secrets" {
   statement {
     sid       = "AllowPassRoleToBeanstalk"

@@ -42,8 +42,3 @@ resource "aws_iam_role_policy_attachment" "worker" {
   role       = aws_iam_role.this.name
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
-resource "aws_iam_role_policy" "execution" {
-  role   = aws_iam_role.execution.id
-  policy = data.aws_iam_policy_document.execution.json
-}
-
