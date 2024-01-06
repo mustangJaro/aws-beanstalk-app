@@ -1,3 +1,7 @@
+# 0.2.0 (Dec 06, 2023)
+* Added support for environment variables.
+* Added support for secrets (injecting `<ENV_VAR>_SECRET_ID` since Beanstalk doesn't support secrets injection).
+
 # 0.1.7 (Dec 29, 2023)
 * Expanded IAM permissions to handle more beanstalk scenarios.
 
