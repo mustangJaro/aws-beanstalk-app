@@ -1,6 +1,9 @@
 // This file is replaced by code-generation using 'capabilities.tf.tmpl'
 // This file helps app module creators define a contract for what types of capability outputs are supported.
 locals {
+
+  cap_env_vars = {}
+  cap_secrets  = {}
   capabilities = {
     // settings is a list of settings that are configured on aws_elastic_beanstalk_environment
     // Reference: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html#command-options-general-ec2instances
