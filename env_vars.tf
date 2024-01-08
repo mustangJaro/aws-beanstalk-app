@@ -27,8 +27,8 @@ locals {
     NULLSTONE_COMMIT_SHA    = data.ns_app_env.this.commit_sha
   })
 
-  input_env_vars = merge(local.standard_env_vars, var.env_vars)
-  input_secrets  = var.secrets
+  input_env_vars = merge(local.standard_env_vars, local.cap_env_vars, var.env_vars)
+  input_secrets  = merge(local.cap_secrets, var.secrets)
 }
 
 data "ns_env_variables" "this" {
