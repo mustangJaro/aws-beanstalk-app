@@ -1,3 +1,6 @@
+# 0.2.1 (Dec 08, 2023)
+* Added support for environment variables and secrets from capability modules.
+
 # 0.2.0 (Dec 06, 2023)
 * Added support for environment variables.
 * Added support for secrets (injecting `<ENV_VAR>_SECRET_ID` since Beanstalk doesn't support secrets injection).
