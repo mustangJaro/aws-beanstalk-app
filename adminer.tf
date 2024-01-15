@@ -16,11 +16,7 @@ data "aws_iam_policy_document" "adminer" {
   statement {
     sid     = "AllowSSMSession"
     effect  = "Allow"
-    actions = ["ssm:StartSession"]
-
-    resources = [
-      aws_instance.this.arn,
-      "arn:aws:ssm:us-east-1::document/AWS-StartSSHSession",
-    ]
+    actions = ["elasticbeanstalk:DescribeEnvironmentResources"]
+    resources = [aws_elastic_beanstalk_application.this.arn]
   }
 }
