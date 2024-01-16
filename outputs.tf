@@ -3,6 +3,17 @@ output "region" {
   description = "string ||| The region the lambda was created."
 }
 
+output "adminer" {
+  value = {
+    name       = aws_iam_user.adminer.name
+    access_key = aws_iam_access_key.adminer.id
+    secret_key = aws_iam_access_key.adminer.secret
+  }
+
+  description = "object({ name: string, access_key: string, secret_key: string }) ||| An AWS User with explicit privilege to admin the EC2 instance."
+  sensitive   = true
+}
+
 output "artifacts_bucket_arn" {
   value       = aws_s3_bucket.artifacts.arn
   description = "string ||| The ARN of the created S3 bucket used for deployment artifacts."
