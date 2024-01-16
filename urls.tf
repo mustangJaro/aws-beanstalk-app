@@ -4,7 +4,7 @@ locals {
   // If this module has URLs, add them here as list(string)
   additional_private_urls = []
 
-  additional_public_urls  = [
+  additional_public_urls = [
     "http://${aws_elastic_beanstalk_environment.this.cname}",
     "http://${aws_elastic_beanstalk_environment.this.endpoint_url}",
   ]

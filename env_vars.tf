@@ -20,11 +20,11 @@ EOF
 
 locals {
   standard_env_vars = tomap({
-    NULLSTONE_STACK         = data.ns_workspace.this.stack_name
-    NULLSTONE_APP           = data.ns_workspace.this.block_name
-    NULLSTONE_ENV           = data.ns_workspace.this.env_name
-    NULLSTONE_VERSION       = data.ns_app_env.this.version
-    NULLSTONE_COMMIT_SHA    = data.ns_app_env.this.commit_sha
+    NULLSTONE_STACK      = data.ns_workspace.this.stack_name
+    NULLSTONE_APP        = data.ns_workspace.this.block_name
+    NULLSTONE_ENV        = data.ns_workspace.this.env_name
+    NULLSTONE_VERSION    = data.ns_app_env.this.version
+    NULLSTONE_COMMIT_SHA = data.ns_app_env.this.commit_sha
   })
 
   input_env_vars = merge(local.standard_env_vars, local.cap_env_vars, var.env_vars)
@@ -42,7 +42,7 @@ data "ns_secret_keys" "this" {
 }
 
 locals {
-  secret_keys          = data.ns_secret_keys.this.secret_keys
-  all_secrets          = data.ns_env_variables.this.secrets
-  all_env_vars         = merge(data.ns_env_variables.this.env_variables, local.app_secret_ids)
+  secret_keys  = data.ns_secret_keys.this.secret_keys
+  all_secrets  = data.ns_env_variables.this.secrets
+  all_env_vars = merge(data.ns_env_variables.this.env_variables, local.app_secret_ids)
 }

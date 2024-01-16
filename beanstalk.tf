@@ -10,7 +10,7 @@ locals {
   beanstalk_env = "${local.env_name}-${random_string.resource_suffix.result}"
 
   // Settings Reference: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
-  basic_settings = [    
+  basic_settings = [
     {
       namespace = "aws:ec2:instances"
       name      = "InstanceTypes"
@@ -52,12 +52,12 @@ locals {
       value     = true
     }
   ]
-  cap_settings = lookup(local.capabilities, "settings", [])
-  env_vars_settings = [for k, v in local.all_env_vars : {namespace = "aws:elasticbeanstalk:application:environment", name = k, value = v }]
-  all_settings = { for setting in concat(local.basic_settings, local.cap_settings, local.env_vars_settings) : "${setting.namespace}/${setting.name}" => setting }
-  app_name = aws_elastic_beanstalk_application.this.name
-  beanstalk_name = aws_elastic_beanstalk_environment.this.name
-  env_arn = "arn:aws:elasticbeanstalk:${local.region}:${local.account_id}:environment/${local.app_name}/${local.beanstalk_name}"
+  cap_settings      = lookup(local.capabilities, "settings", [])
+  env_vars_settings = [for k, v in local.all_env_vars : { namespace = "aws:elasticbeanstalk:application:environment", name = k, value = v }]
+  all_settings      = { for setting in concat(local.basic_settings, local.cap_settings, local.env_vars_settings) : "${setting.namespace}/${setting.name}" => setting }
+  app_name          = aws_elastic_beanstalk_application.this.name
+  beanstalk_name    = aws_elastic_beanstalk_environment.this.name
+  env_arn           = "arn:aws:elasticbeanstalk:${local.region}:${local.account_id}:environment/${local.app_name}/${local.beanstalk_name}"
 }
 
 resource "aws_elastic_beanstalk_environment" "this" {

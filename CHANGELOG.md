@@ -1,3 +1,6 @@
+# 0.2.2 (Jan 16, 2023)
+* Added support for `nullstone ssh`.
+
 # 0.2.1 (Dec 08, 2023)
 * Added support for environment variables and secrets from capability modules.
 
