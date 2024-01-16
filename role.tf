@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "this" {
 // This policy enables SSM on the instance
 resource "aws_iam_role_policy_attachment" "ssm" {
   role       = aws_iam_role.this.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
 resource "aws_iam_role_policy_attachment" "docker" {
