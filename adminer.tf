@@ -14,9 +14,35 @@ resource "aws_iam_user_policy" "adminer" {
 
 data "aws_iam_policy_document" "adminer" {
   statement {
-    sid     = "AllowSSMSession"
-    effect  = "Allow"
-    actions = ["elasticbeanstalk:DescribeEnvironmentResources"]
-    resources = [aws_elastic_beanstalk_application.this.arn]
+    sid       = "ReadEnvironment"
+    effect    = "Allow"
+    actions   = ["elasticbeanstalk:DescribeEnvironmentResources"]
+    resources = [local.env_arn]
+  }
+
+  statement {
+    sid       = "EnableSSMSession"
+    effect    = "Allow"
+    actions   = ["ssm:StartSession"]
+    resources = ["arn:aws:ssm:us-east-1::document/AWS-StartSSHSession"]
+  }
+
+  statement {
+    sid       = "AllowSSMSession"
+    effect    = "Allow"
+    actions   = ["ssm:StartSession"]
+    resources = ["arn:aws:ec2:*:*:instance/*"]
+
+    condition {
+      test     = "StringEquals"
+      variable = "ec2:ResourceTag/elasticbeanstalk:application-name"
+      values   = [local.app_name]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "ec2:ResourceTag/elasticbeanstalk:environment-name"
+      values   = [local.beanstalk_name]
+    }
   }
 }
