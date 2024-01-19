@@ -19,6 +19,22 @@ data "aws_iam_policy_document" "adminer" {
     actions   = ["elasticbeanstalk:DescribeEnvironmentResources"]
     resources = [local.env_arn]
   }
+  statement {
+    sid       = "ReadAutoScaling"
+    effect    = "Allow"
+    actions   = ["autoscaling:DescribeAutoScalingGroups"]
+    resources = ["arn:aws:autoscaling:${local.region}:${local.account_id}:autoScalingGroup:*:autoScalingGroupName/*"]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:ResourceTag/elasticbeanstalk:application-name"
+      values   = [local.app_name]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "aws:ResourceTag/elasticbeanstalk:environment-name"
+      values   = [local.beanstalk_name]
+    }
+  }
 
   statement {
     sid       = "EnableSSMSession"
@@ -35,13 +51,13 @@ data "aws_iam_policy_document" "adminer" {
 
     condition {
       test     = "StringEquals"
-      variable = "ec2:ResourceTag/elasticbeanstalk:application-name"
+      variable = "aws:ResourceTag/elasticbeanstalk:application-name"
       values   = [local.app_name]
     }
 
     condition {
       test     = "StringEquals"
-      variable = "ec2:ResourceTag/elasticbeanstalk:environment-name"
+      variable = "aws:ResourceTag/elasticbeanstalk:environment-name"
       values   = [local.beanstalk_name]
     }
   }
