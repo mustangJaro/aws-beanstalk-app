@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "adminer" {
     condition {
       test     = "StringEquals"
       variable = "aws:ResourceTag/Block"
-      values   = [local.app_name]
+      values   = [local.block_name]
     }
     condition {
       test     = "StringEquals"
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "adminer" {
     condition {
       test     = "StringEquals"
       variable = "aws:ResourceTag/Block"
-      values   = [local.app_name]
+      values   = [local.block_name]
     }
 
     condition {
