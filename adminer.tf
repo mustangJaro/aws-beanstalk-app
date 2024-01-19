@@ -26,7 +26,7 @@ data "aws_iam_policy_document" "adminer" {
     resources = ["arn:aws:autoscaling:${local.region}:${local.account_id}:autoScalingGroup:*:autoScalingGroupName/*"]
     condition {
       test     = "StringEquals"
-      variable = "aws:ResourceTag/elasticbeanstalk:application-name"
+      variable = "aws:ResourceTag/Block"
       values   = [local.app_name]
     }
     condition {
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "adminer" {
 
     condition {
       test     = "StringEquals"
-      variable = "aws:ResourceTag/elasticbeanstalk:application-name"
+      variable = "aws:ResourceTag/Block"
       values   = [local.app_name]
     }
 
