@@ -141,7 +141,10 @@ data "aws_iam_policy_document" "deployer-beanstalk" {
   statement {
     sid       = "AllowLogsForBeanstalk"
     effect    = "Allow"
-    actions   = ["logs:CreateLogGroup"]
+    actions   = [
+      "logs:CreateLogGroup",
+      "logs:PutRetentionPolicy"
+    ]
     resources = ["arn:aws:logs:${data.aws_region.this.name}:*:log-group:/aws/elasticbeanstalk/${local.beanstalk_env}/var/log/*:log-stream"]
   }
 }
