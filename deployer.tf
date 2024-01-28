@@ -136,4 +136,11 @@ data "aws_iam_policy_document" "deployer-beanstalk" {
       "autoscaling:PutNotificationConfiguration"
     ]
   }
+
+  statement {
+    sid       = "AllowLogsForBeanstalk"
+    effect    = "Allow"
+    actions   = "logs:CreateLogGroup"
+    resources = ["arn:aws:logs:${data.aws_region.this.name}:*:log-group:/aws/elasticbeanstalk/${local.beanstalk_env}/var/log/*:log-stream"]
+  }
 }
