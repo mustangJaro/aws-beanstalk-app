@@ -1,4 +1,7 @@
-# 0.2.2 (Jan 16, 2023)
+# 0.2.3 (Jan 27, 2024)
+* Fixed `nullstone push` by adding `s3:GetBucketLocation` to `Pusher`.
+
+# 0.2.2 (Jan 16, 2024)
 * Added support for `nullstone ssh`.
 
 # 0.2.1 (Dec 08, 2023)
