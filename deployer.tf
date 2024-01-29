@@ -134,7 +134,8 @@ data "aws_iam_policy_document" "deployer-beanstalk" {
       "autoscaling:ResumeProcesses",
       "autoscaling:DescribeAutoScalingGroups",
       "autoscaling:DescribeLaunchConfigurations",
-      "autoscaling:PutNotificationConfiguration"
+      "autoscaling:PutNotificationConfiguration",
+      "elasticloadbalancing:DescribeLoadBalancers"
     ]
   }
 
