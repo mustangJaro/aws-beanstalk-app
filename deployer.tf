@@ -147,6 +147,6 @@ data "aws_iam_policy_document" "deployer-beanstalk" {
       "logs:CreateLogGroup",
       "logs:PutRetentionPolicy"
     ]
-    resources = ["arn:aws:logs:${data.aws_region.this.name}:*:log-group:/aws/elasticbeanstalk/${local.beanstalk_env}/*:*"]
+    resources = ["arn:aws:logs:${data.aws_region.this.name}:*:log-group:${local.log_group}"]
   }
 }

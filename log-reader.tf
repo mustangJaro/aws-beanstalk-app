@@ -1,5 +1,5 @@
 locals {
-  log_group = "/aws/elasticbeanstalk/${aws_elastic_beanstalk_application.this.name}/*"
+  log_group = "/aws/elasticbeanstalk/${local.beanstalk_env}/*"
 }
 resource "aws_iam_user" "log_reader" {
   name = "log-reader-${local.resource_name}"
